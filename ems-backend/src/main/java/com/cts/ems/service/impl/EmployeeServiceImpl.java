@@ -47,6 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 				.collect(Collectors.toList());
 	}
 
+	// Implementing update employee method.
 	@Override
 	public EmployeeDto updateEmployee(Long employeeId, EmployeeDto updatedEmployee) {
 		// TODO Auto-generated method stub
@@ -60,6 +61,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		Employee updatedEmployeeObj = employeeRepository.save(employee);
 		return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObj);
+	}
+
+	// Implementing the delete employee method.
+	@Override
+	public void deleteEmployee(Long employeeId) {
+		// If employee with given id not exist then below code will throw resource not found error.
+		Employee employee = employeeRepository.findById(employeeId).orElseThrow(
+				() -> new ResourceNotFoundException("Employee is not exist with given id: "+ employeeId)
+		);
+		employeeRepository.deleteById(employeeId);
 	}
 
 }

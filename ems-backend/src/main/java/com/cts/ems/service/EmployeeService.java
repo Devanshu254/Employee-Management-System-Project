@@ -16,4 +16,7 @@ public interface EmployeeService {
 	
 	// REST API to update employee.
 	EmployeeDto updateEmployee(Long employeeId, EmployeeDto updatedEmployee);
+	
+	// REST API to delete employee.
+	void deleteEmployee(Long employeeId);
 }
