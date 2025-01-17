@@ -1,5 +1,7 @@
 package com.cts.ems.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,4 +37,10 @@ public class DepartmentController {
 		return ResponseEntity.ok(departmentDto);
 	}
 	
+	// Build Get All Departments REST API
+	@GetMapping
+	public ResponseEntity<List<DepartmentDto>> getAllDepartments() {
+		List<DepartmentDto> departments = departmentService.getAllDepartments();
+		return ResponseEntity.ok(departments);
+	}
 }

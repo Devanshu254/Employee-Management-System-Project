@@ -1,5 +1,7 @@
 package com.cts.ems.service;
 
+import java.util.List;
+
 import com.cts.ems.dto.DepartmentDto;
 
 public interface DepartmentService {
@@ -8,4 +10,7 @@ public interface DepartmentService {
 	
 	// Created getDepartment by Id method within our interface.
 	DepartmentDto getDepartmentById(Long departmentId);
+	
+	// Created get all department so that we can get all the departments.
+	List<DepartmentDto> getAllDepartments();
 }

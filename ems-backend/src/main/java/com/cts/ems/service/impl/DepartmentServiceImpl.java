@@ -1,5 +1,8 @@
 package com.cts.ems.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.cts.ems.dto.DepartmentDto;
@@ -33,6 +36,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 				() -> new ResourceNotFoundException("Department does not exist with given id: "+departmentId)
 			);
 		return DepartmentMapper.mapToDepartmentDto(department);
+	}
+
+	@Override
+	public List<DepartmentDto> getAllDepartments() {
+		// TODO Auto-generated method stub
+		List<Department> departments = departmentRepository.findAll();
+		return departments.stream().map((department)->DepartmentMapper.mapToDepartmentDto(department))
+				.collect(Collectors.toList());
 	}
 	
 }
