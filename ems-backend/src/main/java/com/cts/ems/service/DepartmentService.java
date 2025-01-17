@@ -16,4 +16,7 @@ public interface DepartmentService {
 	
 	// Below method will be used to update the department details.
 	DepartmentDto updateDepartment(Long departmentId, DepartmentDto updatedDepartment);
+	
+	// Below method will be used to delete the department.
+	void deleteDepartment(Long departmentId);
 }

@@ -59,5 +59,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 		Department savedDepartment = departmentRepository.save(department);
 		return DepartmentMapper.mapToDepartmentDto(savedDepartment);
 	}
+
+	// Below method is an implementation of delete department method in service interface.
+	@Override
+	public void deleteDepartment(Long departmentId) {
+		// TODO Auto-generated method stub
+		departmentRepository.findById(departmentId).orElseThrow(
+				() -> new ResourceNotFoundException("Department does not exist with the given id: "+ departmentId)
+				);
+		departmentRepository.deleteById(departmentId);
+	}
 	
 }
