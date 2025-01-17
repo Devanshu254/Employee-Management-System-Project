@@ -13,4 +13,7 @@ public interface DepartmentService {
 	
 	// Created get all department so that we can get all the departments.
 	List<DepartmentDto> getAllDepartments();
+	
+	// Below method will be used to update the department details.
+	DepartmentDto updateDepartment(Long departmentId, DepartmentDto updatedDepartment);
 }

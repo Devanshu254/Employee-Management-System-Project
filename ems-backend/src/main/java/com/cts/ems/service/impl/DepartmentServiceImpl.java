@@ -38,12 +38,26 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return DepartmentMapper.mapToDepartmentDto(department);
 	}
 
+	// Below method is an implementation of getting all the departments.
 	@Override
 	public List<DepartmentDto> getAllDepartments() {
 		// TODO Auto-generated method stub
 		List<Department> departments = departmentRepository.findAll();
 		return departments.stream().map((department)->DepartmentMapper.mapToDepartmentDto(department))
 				.collect(Collectors.toList());
+	}
+
+	// Below method will implement the update department.
+	@Override
+	public DepartmentDto updateDepartment(Long departmentId, DepartmentDto updatedDepartment) {
+		// TODO Auto-generated method stub
+		Department department = departmentRepository.findById(departmentId).orElseThrow(
+				() -> new ResourceNotFoundException("Department does not exist with given id: "+departmentId)
+			);
+		department.setDepartmentName(updatedDepartment.getDepartmentName());
+		department.setDepartmentDescription(updatedDepartment.getDepartmentDescription());
+		Department savedDepartment = departmentRepository.save(department);
+		return DepartmentMapper.mapToDepartmentDto(savedDepartment);
 	}
 	
 }
