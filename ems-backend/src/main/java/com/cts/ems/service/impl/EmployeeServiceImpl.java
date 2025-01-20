@@ -6,9 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.cts.ems.dto.EmployeeDto;
+import com.cts.ems.entity.Department;
 import com.cts.ems.entity.Employee;
 import com.cts.ems.exception.ResourceNotFoundException;
 import com.cts.ems.mapper.EmployeeMapper;
+import com.cts.ems.repository.DepartmentRepository;
 import com.cts.ems.repository.EmployeeRepository;
 import com.cts.ems.service.EmployeeService;
 
@@ -20,10 +22,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	private EmployeeRepository employeeRepository;
 	
+	private DepartmentRepository departmentRepository;
+	
 	// Implements Create Employee method which creates a method in our project.
 	@Override
 	public EmployeeDto createEmployee(EmployeeDto employeeDto) {
 		Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
+		
+		Department department = departmentRepository.findById(employeeDto.getDepartmentId())
+				.orElseThrow(() -> 
+				new ResourceNotFoundException("Department does not exist with id: "+employeeDto.getDepartmentId()));
+		employee.setDepartment(department);
+		
 		Employee savedEmployee = employeeRepository.save(employee);
 		return EmployeeMapper.mapToEmployeeDto(savedEmployee);
 	}
@@ -58,6 +68,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setFirstName(updatedEmployee.getFirstName());
 		employee.setLastName(updatedEmployee.getLastName());
 		employee.setEmail(updatedEmployee.getEmail());
+		
+		Department department = departmentRepository.findById(updatedEmployee.getDepartmentId())
+				.orElseThrow(() -> 
+				new ResourceNotFoundException("Department does not exist with id: "+updatedEmployee.getDepartmentId()));
+		employee.setDepartment(department);
 		
 		Employee updatedEmployeeObj = employeeRepository.save(employee);
 		return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObj);

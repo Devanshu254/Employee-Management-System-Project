@@ -9,10 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeDto {
-	private Long id;
-	private String firstName;
-	private String lastName;
+public class RegisterDto {
+	private String name;
+	private String username;	
 	private String email;
-	private Long departmentId;
+	private String password;
 }
